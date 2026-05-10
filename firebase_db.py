@@ -1,19 +1,12 @@
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials
+import os
 
-# conectar
-cred = credentials.Certificate("firebase_key.json")
-
-firebase_admin.initialize_app(cred)
-
-db = firestore.client()
-
-# salvar teste
-db.collection("testes").add({
-
-    "nome": "teste firebase",
-    "status": "funcionando"
-
+cred = credentials.Certificate({
+    "type": "service_account",
+    "project_id": os.getenv("FIREBASE_PROJECT_ID"),
+    "client_email": os.getenv("FIREBASE_CLIENT_EMAIL"),
+    "private_key": os.getenv("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),
 })
 
-print("Dado salvo!")
+firebase_admin.initialize_app(cred)
