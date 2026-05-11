@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from firebase_db import db
 import pandas as pd
 import joblib
+import os
+print("STARTING APP")
+print(os.getcwd())
 
 app = FastAPI()
 
